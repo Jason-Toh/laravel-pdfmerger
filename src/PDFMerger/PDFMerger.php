@@ -222,7 +222,7 @@ class PDFMerger {
                 for ($i = 1; $i <= $count; $i++) {
                     $template   = $oFPDI->importPage($i);
                     $size       = $oFPDI->getTemplateSize($template);
-                    $autoOrientation = $file['orientation'] ?? $size['orientation'];
+                    $autoOrientation = isset($file['orientation']) ? $file['orientation'] : $size['orientation'];
 
                     $oFPDI->AddPage($autoOrientation, [$size['width'], $size['height']]);
                     $oFPDI->useTemplate($template);
@@ -233,7 +233,7 @@ class PDFMerger {
                         throw new \Exception("Could not load page '$page' in PDF '".$file['name']."'. Check that the page exists.");
                     }
                     $size = $oFPDI->getTemplateSize($template);
-                    $autoOrientation = $file['orientation'] ?? $size['orientation'];
+                    $autoOrientation = isset($file['orientation']) ? $file['orientation'] : $size['orientation'];
 
                     $oFPDI->AddPage($autoOrientation, [$size['width'], $size['height']]);
                     $oFPDI->useTemplate($template);
